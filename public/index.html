@@ -11,6 +11,7 @@
             href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500&display=swap"
             rel="stylesheet"
         />
+        <meta name="theme-color" content="#000" />
         <meta
             name="description"
             content="A place where ideas are variables. Welcome to the land of possibility."
@@ -28,9 +29,12 @@
         <meta property="og:site_name" content="Variable Land" />
 
         <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="variable.land" />
+        <meta property="twitter:url" content="https://variable.land" />
+        <meta name="twitter:title" content="Variable Land" />
         <meta name="twitter:site" content="@variableland" />
         <meta name="twitter:creator" content="@variableland" />
-        <meta name="twitter:title" content="Variable Land" />
+        <meta name="twitter:image" content="https://variable.land/og.jpg" />
         <meta
             name="twitter:description"
             content="A place where ideas are variables. Welcome to the land of possibility."
@@ -40,6 +44,7 @@
         <style type="text/tailwindcss">
             @theme {
                 --font-mono: "Geist Mono", monospace;
+                --color-background: #000;
                 --color-primary: #36d399;
             }
             .slash {
@@ -65,13 +70,13 @@
         </style>
     </head>
     <body class="h-full">
-        <main class="flex h-full items-center justify-center bg-slate-950">
+        <main class="flex h-full items-center justify-center bg-background">
             <a
                 href="https://www.github.com/variableland"
                 class="hover:underline decoration-white decoration-solid decoration-2"
             >
                 <h1
-                    class="font-mono font-medium text:xl md:text-2xl text-white"
+                    class="font-mono font-medium text-xl sm:text-2xl text-white"
                 >
                     <span class="slash">/</span>variable_land
                 </h1>
