@@ -1,0 +1,35 @@
+/* Variable Land's brand tokens, copied unchanged from the brand guideline's tokens/tokens.css. */
+:root {
+  color-scheme: light;
+  --vland-paper: #eff0e9;
+  --vland-ink: #17201b;
+  --vland-ink-soft: #4b5750;
+  --vland-line: #cdd3c6;
+  --vland-line-index: #a9b4a3;
+  --vland-rule: #c6ccbe;
+  --vland-logo: #36d399;
+  --vland-font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --vland-font-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --vland-paper: #0f1512;
+    --vland-ink: #e5e9e1;
+    --vland-ink-soft: #a1aba3;
+    --vland-line: #1f2b24;
+    --vland-line-index: #2f4136;
+    --vland-rule: #2c3a32;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --vland-paper: #0f1512;
+  --vland-ink: #e5e9e1;
+  --vland-ink-soft: #a1aba3;
+  --vland-line: #1f2b24;
+  --vland-line-index: #2f4136;
+  --vland-rule: #2c3a32;
+}

@@ -1,0 +1,23 @@
+---
+import { contourLines, MAP_HEIGHT, MAP_WIDTH, peak } from "../land/land.ts";
+import { LOGO_HEIGHT, LOGO_WIDTH, logoHull } from "../logo.ts";
+
+const clearingWidth = 64 * 1.4;
+const clearingScale = clearingWidth / LOGO_WIDTH;
+const clearingHeight = LOGO_HEIGHT * clearingScale;
+const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} ${(peak.y - clearingHeight / 2).toFixed(1)}) scale(${clearingScale.toFixed(4)})`;
+---
+
+<svg
+  class="contours"
+  xmlns="http://www.w3.org/2000/svg"
+  width={MAP_WIDTH}
+  height={MAP_HEIGHT}
+  viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
+  style={`--summit-x:${peak.x}px;--summit-y:${peak.y}px`}
+  aria-hidden="true"
+  focusable="false"
+>
+  {contourLines.map((line) => <path class={line.index ? "ix" : "ln"} d={line.d} />)}
+  <path class="clear" transform={clearingTransform} d={logoHull} />
+</svg>
