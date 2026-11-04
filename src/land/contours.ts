@@ -1,12 +1,22 @@
 export type HeightField = (x: number, y: number) => number;
 
-export type Hill = { x: number; y: number; height: number; radius: number };
+export type Point = { x: number; y: number };
 
-export type Peak = { x: number; y: number; height: number };
+export type Peak = Point & { height: number };
 
-export type Contour = { level: number; index: boolean; d: string };
+export type Hill = Peak & { radius: number };
 
-type Point = { x: number; y: number };
+export type Terrain = { hills: Hill[]; noise: number; seed: number };
+
+export type Area = { width: number; height: number; step: number };
+
+export type Tracing = Area & { levels: number[]; indexEvery: number; epsilon: number };
+
+export type Contour = { isIndex: boolean; d: string };
+
+const NOISE_SIZE = 64;
+const SMOOTHING_ROUNDS = 2;
+const MIN_LINE_POINTS = 6;
 
 type EdgePoint = Point & { edge: string };
 
@@ -15,8 +25,6 @@ type Segment = [EdgePoint, EdgePoint];
 type Line = EdgePoint[];
 
 type Grid = { columns: number; rows: number; values: Float64Array };
-
-type Area = { width: number; height: number; step: number };
 
 function random(seed: number): () => number {
   let state = seed >>> 0;
@@ -29,10 +37,10 @@ function random(seed: number): () => number {
   };
 }
 
-function valueNoise(seed: number, size = 64): HeightField {
-  const grid = Array.from({ length: size * size }, random(seed));
-  const wrap = (n: number) => ((n % size) + size) % size;
-  const at = (x: number, y: number) => grid[wrap(y) * size + wrap(x)] ?? 0;
+function valueNoise(seed: number): HeightField {
+  const grid = Array.from({ length: NOISE_SIZE * NOISE_SIZE }, random(seed));
+  const wrap = (n: number) => ((n % NOISE_SIZE) + NOISE_SIZE) % NOISE_SIZE;
+  const at = (x: number, y: number) => grid[wrap(y) * NOISE_SIZE + wrap(x)] ?? 0;
   const smooth = (t: number) => t * t * (3 - 2 * t);
   return (x, y) => {
     const x0 = Math.floor(x);
@@ -47,7 +55,7 @@ function valueNoise(seed: number, size = 64): HeightField {
   };
 }
 
-export function field({ hills, noise, seed }: { hills: Hill[]; noise: number; seed: number }): HeightField {
+export function field({ hills, noise, seed }: Terrain): HeightField {
   const coarse = valueNoise(seed);
   const fine = valueNoise(seed + 1);
   return (x, y) => {
@@ -164,9 +172,9 @@ function chain(found: Segment[]): Line[] {
   return lines;
 }
 
-function chaikin(points: Point[], closed: boolean, rounds = 2): Point[] {
+function chaikin(points: Point[], closed: boolean): Point[] {
   let current = points;
-  for (let round = 0; round < rounds; round++) {
+  for (let round = 0; round < SMOOTHING_ROUNDS; round++) {
     const first = current[0];
     const last = current[current.length - 1];
     const next: Point[] = closed || !first ? [] : [first];
@@ -230,20 +238,11 @@ function toPath(line: Line, epsilon: number): string {
   return `M${commands.join("L")}${closed ? "Z" : ""}`;
 }
 
-export function contours(
-  heightAt: HeightField,
-  {
-    levels,
-    every,
-    epsilon,
-    minLength = 6,
-    ...area
-  }: Area & { levels: number[]; every: number; epsilon: number; minLength?: number },
-): Contour[] {
+export function contours(heightAt: HeightField, { levels, indexEvery, epsilon, ...area }: Tracing): Contour[] {
   const grid = sample(heightAt, area);
   return levels.map((level, n) => {
-    const lines = chain(segments(grid, area.step, level)).filter((line) => line.length >= minLength);
-    return { level, index: n % every === every - 1, d: lines.map((line) => toPath(line, epsilon)).join("") };
+    const lines = chain(segments(grid, area.step, level)).filter((line) => line.length >= MIN_LINE_POINTS);
+    return { isIndex: n % indexEvery === indexEvery - 1, d: lines.map((line) => toPath(line, epsilon)).join("") };
   });
 }
 

@@ -4,10 +4,8 @@ import newsreaderItalic from "@fontsource-variable/newsreader/files/newsreader-l
 import newsreader from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2?url";
 import ContourMap from "../components/contour-map.astro";
 import { content, description } from "../content.ts";
-import { LOGO_HEIGHT, LOGO_WIDTH, logoShapes } from "../logo.ts";
+import { LOGO_RATIO, logoShapes, logoViewBox, MARK_WIDTH } from "../logo.ts";
 import "../styles/site.css";
-
-const mark = 64;
 ---
 
 <!doctype html>
@@ -28,28 +26,28 @@ const mark = 64;
     <main class="sheet">
       <div class="map">
         <div class="land" aria-hidden="true"><ContourMap /></div>
-        <div class="place" style={`--logo-ratio:${LOGO_HEIGHT / LOGO_WIDTH}`}>
+        <div class="place" style={`--logo-ratio:${LOGO_RATIO}`}>
           <svg
             class="logo"
             aria-hidden="true"
             focusable="false"
             xmlns="http://www.w3.org/2000/svg"
-            viewBox={`0 0 ${LOGO_WIDTH} ${LOGO_HEIGHT}`}
-            width={mark}
-            height={+((mark * LOGO_HEIGHT) / LOGO_WIDTH).toFixed(2)}
+            viewBox={logoViewBox}
+            width={MARK_WIDTH}
+            height={+(MARK_WIDTH * LOGO_RATIO).toFixed(2)}
             set:html={logoShapes}
           />
           <h1 class="place-name">{content.name}</h1>
         </div>
       </div>
-      <section class="legend" aria-label="About">
-        <p class="statement"><span>{content.line[0]}</span> <em>{content.line[1]}</em></p>
+      <section class="legend" aria-label={content.legendLabel}>
+        <p class="statement"><span>{content.statement.first}</span> <em>{content.statement.second}</em></p>
         <div class="lab">
-          <span class="lab-role mono">{content.lab.role}</span>
+          <span class="label">{content.lab.role}</span>
           <a href={content.lab.href}>
             <span class="lab-name">{content.lab.name}</span>
             <span class="host-row">
-              <span class="host mono">{content.lab.host}</span>
+              <span class="label">{content.lab.host}</span>
               <svg class="ext" aria-hidden="true" focusable="false" viewBox="0 0 12 12" width="12" height="12">
                 <path d="M3.5 2.5h6v6M9.5 2.5l-7 7" fill="none" stroke="currentColor" stroke-width="1.4" />
               </svg>

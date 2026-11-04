@@ -1,6 +1,10 @@
 export const content = {
   name: "Variable Land",
-  line: ["A place where ideas are variables.", "Welcome to the land of possibility."],
+  statement: {
+    first: "A place where ideas are variables.",
+    second: "Welcome to the land of possibility.",
+  },
+  legendLabel: "About",
   lab: {
     name: "Variable Lab",
     role: "Our open-source arm",
@@ -9,4 +13,4 @@ export const content = {
   },
 } as const;
 
-export const description = content.line.join(" ");
+export const description = `${content.statement.first} ${content.statement.second}`;

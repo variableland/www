@@ -3,6 +3,8 @@ import { contours, field, summit } from "./contours.ts";
 export const MAP_WIDTH = 2400;
 export const MAP_HEIGHT = 2200;
 
+const map = { width: MAP_WIDTH, height: MAP_HEIGHT };
+
 const heightAt = field({
   seed: 11,
   noise: 0.2,
@@ -19,15 +21,8 @@ const heightAt = field({
   ],
 });
 
-export const peak = summit(heightAt, { width: MAP_WIDTH, height: MAP_HEIGHT, step: 4 });
+export const peak = summit(heightAt, { ...map, step: 4 });
 
 const levels = Array.from({ length: 20 }, (_, i) => 0.05 + i * 0.06).filter((level) => level < peak.height - 0.03);
 
-export const contourLines = contours(heightAt, {
-  width: MAP_WIDTH,
-  height: MAP_HEIGHT,
-  step: 7,
-  levels,
-  every: 5,
-  epsilon: 1.4,
-});
+export const contourLines = contours(heightAt, { ...map, step: 7, levels, indexEvery: 5, epsilon: 1.4 });

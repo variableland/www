@@ -1,11 +1,10 @@
 ---
 import { contourLines, MAP_HEIGHT, MAP_WIDTH, peak } from "../land/land.ts";
-import { LOGO_HEIGHT, LOGO_WIDTH, logoHull } from "../logo.ts";
+import { LOGO_RATIO, LOGO_WIDTH, logoHull, MARK_WIDTH } from "../logo.ts";
 
-const clearingWidth = 64 * 1.4;
-const clearingScale = clearingWidth / LOGO_WIDTH;
-const clearingHeight = LOGO_HEIGHT * clearingScale;
-const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} ${(peak.y - clearingHeight / 2).toFixed(1)}) scale(${clearingScale.toFixed(4)})`;
+const clearingWidth = MARK_WIDTH * 1.4;
+const clearingHeight = clearingWidth * LOGO_RATIO;
+const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} ${(peak.y - clearingHeight / 2).toFixed(1)}) scale(${(clearingWidth / LOGO_WIDTH).toFixed(4)})`;
 ---
 
 <svg
@@ -18,6 +17,6 @@ const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} 
   aria-hidden="true"
   focusable="false"
 >
-  {contourLines.map((line) => <path class={line.index ? "ix" : "ln"} d={line.d} />)}
+  {contourLines.map((line) => <path class={line.isIndex ? "ix" : "ln"} d={line.d} />)}
   <path class="clear" transform={clearingTransform} d={logoHull} />
 </svg>
