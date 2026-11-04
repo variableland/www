@@ -82,6 +82,12 @@ url = "https://nodejs.org/dist/v24.22.2/node-v24.22.2-darwin-x64.tar.gz"
 checksum = "sha256:ca1bff5d8ead13c9f2ea404a176db46bd430704d5b5113734049fa365e7799e2"
 url = "https://nodejs.org/dist/v24.22.2/node-v24.22.2-win-x64.zip"
 
+[[tools."npm:@variableland/brand"]]
+version = "0.2.0"
+aube = { path = ".mise/locks/npm-variableland-brand/0.2.0", digest = "sha256:d4f3125fddb48bd0508900ea9d6afe88d09d47ddfe6dd02bc7c71af3bdaba57b" }
+backend = "npm:@variableland/brand"
+specifiers = ["0.2.0"]
+
 [[tools.pnpm]]
 version = "12.16.1"
 backend = "aqua:pnpm/pnpm"

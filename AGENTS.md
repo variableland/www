@@ -7,7 +7,7 @@ The site is one static page. `astro build` renders `src/pages/index.astro`, its 
 ## Code
 
 - The words are in `src/content.ts`, never in the page.
-- The brand comes from the `@variableland/brand` package, never copied here: its `tokens.css` and `tokens.json`, the Logo (`assets/logo.svg`) and the Map (`assets/land/`). A change to any of them is a new version of the package, bumped here. `src/variableland-brand.d.ts` types the two exports of `assets/land/land.mjs` the site uses.
+- The brand comes from the `@variableland/brand` package, never copied here: its `tokens.css` and `tokens.json`, the Logo (`assets/logo.svg`) and the Map (`assets/land/`). A change to any of them is a new version of the package, bumped here in `package.json` and in `mise.toml`'s `npm:@variableland/brand`, the `vland-brand` command, together. `src/variableland-brand.d.ts` types the two exports of `assets/land/land.mjs` the site uses.
 - The page inlines the Map, `assets/land/map.svg`, with its Clearing and its own styles, and sets it under the Logo: `.sheet`'s `--place-x` and `--place-y` say where the summit sits on the sheet at each width, and `--summit-x` and `--summit-y`, from the package's `top`, say where it is on the land.
 - `src/logo.ts` reads the Logo's proportions from `assets/logo.svg` and places it with the attributes each use needs. Its green is the only hue on the page.
 - The name's cap height centers on the Logo: `.place-name` moves down 0.143em beside it, and not on a phone, where the name sits under the Logo.
@@ -16,6 +16,7 @@ The site is one static page. `astro build` renders `src/pages/index.astro`, its 
 - Light and dark follow the system's `prefers-color-scheme`.
 - The head carries the description, the canonical URL, Open Graph and `twitter:card` tags with absolute URLs from `site` in `astro.config.mjs`, and the icons. There is no sitemap: the site is one URL.
 - `og.png` is drawn at build time by `src/og/`, in the dark theme: the Map (the package's `mapPaths()`) full bleed, with the Logo on its Clearing and the name as the Place at the center, on `paper`. The Place is the page's desktop Place at 1.15×; the name sits 0.158em lower than its box, as the approved design measured it, on a whole-pixel baseline, as a browser sets it. The name is shaped with HarfBuzz (harfbuzzjs) at the page's own instance, weight 500 at the optical size of its pixel size, so its kerning varies with the instance as the browser's does, and drawn as the glyphs' outlines, with a 0.9px ink stroke: a browser draws light text on a dark ground heavier than its outlines, and the stroke gives the image the weight the page and the approved design show (the name's total ink within 1% of the design's). An image renderer that sets type from a variable font uses its default instance, the 16pt text cut. sharp rasterizes the SVG.
+- The README's sheet, `.github/readme/sheet-{light,dark}.svg`, is drawn by `vland-brand sheet --place`, never by hand, and CI's `--check` fails when it is out of date: after a bump, draw it again and commit what changed ([docs/development.md](./docs/development.md#generated-files)).
 - The tools run by name through mise's PATH; the commands are in [docs/development.md](./docs/development.md#tasks). In a non-interactive shell mise's hook may not run: use `mise exec -- <command>`.
 
 ## Rules
