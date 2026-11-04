@@ -34,7 +34,7 @@ export async function ogImage(): Promise<Uint8Array<ArrayBuffer>> {
   const logo = logoSvg({ x: summit.x - mark / 2, y: summit.y - logoHeight / 2, width: mark, height: logoHeight });
   const text = `<g transform="translate(${textX} ${baseline})" fill="${color("ink")}">${name.paths}</g>`;
 
-  const mapStyle = `<style>path{fill:none;stroke-linejoin:round}.ln{stroke:${color("line")};stroke-width:${LINE_WIDTH.line / SCALE}}.ix{stroke:${color("line-index")};stroke-width:${LINE_WIDTH.index / SCALE}}.clear{fill:${color("paper")}}</style>`;
+  const mapStyle = `<style>.ln,.ix{fill:none;stroke-linejoin:round}.ln{stroke:${color("line")};stroke-width:${LINE_WIDTH.line / SCALE}}.ix{stroke:${color("line-index")};stroke-width:${LINE_WIDTH.index / SCALE}}.clear{fill:${color("paper")}}</style>`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_WIDTH}" height="${OG_HEIGHT}" viewBox="0 0 ${OG_WIDTH} ${OG_HEIGHT}">${mapStyle}<rect width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="${color("paper")}"/>${map}${plate}${logo}${text}</svg>`;
   return new Uint8Array(await sharp(Buffer.from(svg)).png().toBuffer());
 }
