@@ -8,6 +8,7 @@ export type PlaceName = { paths: string; width: number; capHeight: number; ascen
 
 const require = createRequire(import.meta.url);
 const fontFile = "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2";
+const CAPITAL_H = 0x48;
 
 async function newsreader(): Promise<Font> {
   const woff2 = await readFile(require.resolve(fontFile));
@@ -33,7 +34,7 @@ export async function placeName(text: string, size: number): Promise<PlaceName> 
   return {
     paths: paths.join(""),
     width: x,
-    capHeight: font.capHeight * scale,
+    capHeight: font.glyphForCodePoint(CAPITAL_H).bbox.maxY * scale,
     ascent: font.ascent * scale,
     descent: -font.descent * scale,
   };

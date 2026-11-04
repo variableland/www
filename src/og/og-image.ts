@@ -8,7 +8,7 @@ import { placeName } from "./place-name.ts";
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
 
-const SCALE = 1.5;
+const SCALE = 1.3;
 const PLACE_GAP = 20;
 const PLATE = { top: 0.06, side: 0.16, bottom: 0.1 };
 const LINE_WIDTH = { line: 1, index: 1.25 };
