@@ -1,4 +1,4 @@
-@import "../brand/tokens.css";
+@import "@variableland/brand/tokens.css";
 @import "@fontsource/geist-mono/latin-400.css";
 
 @font-face {
@@ -63,32 +63,13 @@ a {
   isolation: isolate;
 }
 
-.contours {
+.vland-map {
   position: absolute;
   z-index: -1;
   left: calc(var(--place-x) - var(--summit-x));
   top: calc(var(--place-y) - var(--summit-y));
   transform: scale(var(--map-scale));
   transform-origin: var(--summit-x) var(--summit-y);
-}
-
-.contours path {
-  fill: none;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.contours .ln {
-  stroke: var(--vland-line);
-}
-
-.contours .ix {
-  stroke: var(--vland-line-index);
-  stroke-width: 1.25;
-}
-
-.contours .clear {
-  fill: var(--vland-paper);
 }
 
 .place {
@@ -105,7 +86,6 @@ a {
   width: var(--mark);
   height: auto;
   flex: none;
-  fill: var(--vland-logo);
 }
 
 .place-name {

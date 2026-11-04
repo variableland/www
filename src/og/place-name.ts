@@ -1,8 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
+import tokens from "@variableland/brand/tokens.json";
 import { create, type Font } from "fontkit";
 import { decompress } from "woff2-encoder";
-import tokens from "../brand/tokens.json";
 
 export type PlaceName = { paths: string; width: number; capHeight: number; ascent: number; descent: number };
 

@@ -1,4 +1,4 @@
+import logo from "@variableland/brand/assets/logo.svg?raw";
 import type { APIRoute } from "astro";
-import { logoSvg } from "../logo.ts";
 
-export const GET: APIRoute = () => new Response(logoSvg(), { headers: { "Content-Type": "image/svg+xml" } });
+export const GET: APIRoute = () => new Response(logo, { headers: { "Content-Type": "image/svg+xml" } });

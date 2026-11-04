@@ -2,10 +2,11 @@
 import geistMono from "@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url";
 import newsreaderItalic from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2?url";
 import newsreader from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2?url";
-import tokens from "../brand/tokens.json";
-import ContourMap from "../components/contour-map.astro";
+import { top } from "@variableland/brand/assets/land/land.mjs";
+import map from "@variableland/brand/assets/land/map.svg?raw";
+import tokens from "@variableland/brand/tokens.json";
 import { content, description } from "../content.ts";
-import { LOGO_RATIO, logoShapes, logoViewBox } from "../logo.ts";
+import { LOGO_RATIO, logoSvg } from "../logo.ts";
 import { OG_HEIGHT, OG_WIDTH } from "../og/og-image.ts";
 import "../styles/site.css";
 
@@ -43,9 +44,9 @@ const ogImage = new URL("/og.png", Astro.site).href;
     ))}
   </head>
   <body>
-    <main class="sheet">
+    <main class="sheet" style={`--summit-x:${top.x}px;--summit-y:${top.y}px`}>
       <div class="place" style={`--logo-ratio:${LOGO_RATIO}`}>
-        <svg class="logo" aria-hidden="true" viewBox={logoViewBox} set:html={logoShapes} />
+        <Fragment set:html={logoSvg({ class: "logo", "aria-hidden": "true" })} />
         <h1 class="place-name">{content.name}</h1>
       </div>
       <section class="legend" aria-label={content.legendLabel}>
@@ -63,7 +64,7 @@ const ogImage = new URL("/og.png", Astro.site).href;
           </a>
         </div>
       </section>
-      <ContourMap />
+      <Fragment set:html={map} />
     </main>
   </body>
 </html>
