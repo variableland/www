@@ -6,10 +6,13 @@ It is one static page: a map sheet with the contour lines of an invented land, t
 
 ## Repository
 
-- `src/pages/`: the homepage and its icon.
+- `src/pages/`: the homepage, its icons and its Open Graph image.
 - `src/land/`: the land on the map and the tracer that draws its contour lines.
+- `src/og/`: the Open Graph image, drawn at build time.
 - `src/components/`: the map.
-- `src/styles/`: the brand's tokens, the fonts and the page's styles.
+- `src/brand/`: the brand guideline's tokens.
+- `src/styles/`: the fonts and the page's styles.
+- `public/`: `robots.txt` and `_headers`, copied as is.
 - `docs/`: the [contributing](docs/contributing.md) and [development](docs/development.md) guides.
 
 ## Contributing

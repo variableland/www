@@ -1,3 +1,5 @@
+import tokens from "./brand/tokens.json";
+
 export const LOGO_WIDTH = 402.02;
 const LOGO_HEIGHT = 468.12;
 export const LOGO_RATIO = LOGO_HEIGHT / LOGO_WIDTH;
@@ -14,4 +16,11 @@ export const logoShapes = `<path d="${ring}"/><polygon points="${letterV}"/>`;
 
 export const logoHull = "M0,111.67v244.78l201.01,111.67,201.01-111.67V111.67L201.01,0Z";
 
-export const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${logoViewBox}" fill="#36d399">${logoShapes}</svg>`;
+type Placement = { x: number; y: number; width: number };
+
+export function logoSvg(placement?: Placement): string {
+  const box = placement
+    ? ` x="${placement.x}" y="${placement.y}" width="${placement.width}" height="${placement.width * LOGO_RATIO}"`
+    : "";
+  return `<svg xmlns="http://www.w3.org/2000/svg"${box} viewBox="${logoViewBox}" fill="${tokens.color.logo.light}">${logoShapes}</svg>`;
+}

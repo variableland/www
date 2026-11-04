@@ -1,10 +1,6 @@
 ---
-import { contourLines, MAP_HEIGHT, MAP_WIDTH, peak } from "../land/land.ts";
-import { LOGO_RATIO, LOGO_WIDTH, logoHull, MARK_WIDTH } from "../logo.ts";
-
-const clearingWidth = MARK_WIDTH * 1.4;
-const clearingHeight = clearingWidth * LOGO_RATIO;
-const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} ${(peak.y - clearingHeight / 2).toFixed(1)}) scale(${(clearingWidth / LOGO_WIDTH).toFixed(4)})`;
+import { clearingTransform, contourLines, MAP_HEIGHT, MAP_WIDTH, peak } from "../land/land.ts";
+import { logoHull } from "../logo.ts";
 ---
 
 <svg

@@ -1,4 +1,4 @@
-@import "./tokens.css";
+@import "../brand/tokens.css";
 @import "@fontsource/geist-mono/latin-400.css";
 
 @font-face {

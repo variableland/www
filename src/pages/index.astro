@@ -2,10 +2,18 @@
 import geistMono from "@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2?url";
 import newsreaderItalic from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2?url";
 import newsreader from "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2?url";
+import tokens from "../brand/tokens.json";
 import ContourMap from "../components/contour-map.astro";
 import { content, description } from "../content.ts";
 import { LOGO_RATIO, logoShapes, logoViewBox } from "../logo.ts";
+import { OG_HEIGHT, OG_WIDTH } from "../og/og-image.ts";
 import "../styles/site.css";
+
+if (Astro.site === undefined) {
+  throw new Error("astro.config.mjs sets site: the canonical URL, og:url and og:image are absolute.");
+}
+const url = new URL("/", Astro.site).href;
+const ogImage = new URL("/og.png", Astro.site).href;
 ---
 
 <!doctype html>
@@ -16,8 +24,20 @@ import "../styles/site.css";
     <title>{content.name}</title>
     <meta name="description" content={description}>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <meta name="theme-color" content="#eff0e9" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0f1512" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href={url}>
+    <meta name="theme-color" content={tokens.color.paper.light} media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content={tokens.color.paper.dark} media="(prefers-color-scheme: dark)">
+    <meta property="og:site_name" content={content.name}>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content={url}>
+    <meta property="og:title" content={content.name}>
+    <meta property="og:description" content={description}>
+    <meta property="og:image" content={ogImage}>
+    <meta property="og:image:width" content={String(OG_WIDTH)}>
+    <meta property="og:image:height" content={String(OG_HEIGHT)}>
+    <meta property="og:image:alt" content={content.ogImageAlt}>
+    <meta name="twitter:card" content="summary_large_image">
     {[newsreader, newsreaderItalic, geistMono].map((href) => (
       <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />
     ))}

@@ -1,3 +1,4 @@
+import { LOGO_RATIO, LOGO_WIDTH, MARK_WIDTH } from "../logo.ts";
 import { contours, field, summit } from "./contours.ts";
 
 export const MAP_WIDTH = 2400;
@@ -26,3 +27,8 @@ export const peak = summit(heightAt, { ...map, step: 4 });
 const levels = Array.from({ length: 20 }, (_, i) => 0.05 + i * 0.06).filter((level) => level < peak.height - 0.03);
 
 export const contourLines = contours(heightAt, { ...map, step: 7, levels, indexEvery: 5, epsilon: 1.4 });
+
+const clearingWidth = MARK_WIDTH * 1.4;
+const clearingHeight = clearingWidth * LOGO_RATIO;
+
+export const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} ${(peak.y - clearingHeight / 2).toFixed(1)}) scale(${(clearingWidth / LOGO_WIDTH).toFixed(4)})`;

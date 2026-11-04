@@ -4,11 +4,14 @@ How to work on www in a clone. The [contributing guide](contributing.md) covers 
 
 ## Layout
 
-- `src/pages/`: the homepage and its icon.
+- `src/pages/`: the homepage, its icons and its Open Graph image.
 - `src/land/`: the land on the map and the tracer that draws its contour lines.
+- `src/og/`: the Open Graph image, drawn at build time.
 - `src/components/`: the map.
-- `src/styles/`: the brand's tokens, the fonts and the page's styles.
+- `src/brand/`: the brand guideline's tokens, as CSS and as JSON.
+- `src/styles/`: the fonts and the page's styles.
 - `src/content.ts` and `src/logo.ts`: the page's words and the Logo.
+- `public/`: files copied as is: `robots.txt` and `_headers`.
 - `docs/`: these two guides.
 - `wrangler.jsonc`: how the Worker serves `dist/`.
 - `lefthook.yml` and `lefthook/`: the git hooks.
