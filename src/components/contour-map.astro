@@ -9,13 +9,11 @@ const clearingTransform = `translate(${(peak.x - clearingWidth / 2).toFixed(1)} 
 
 <svg
   class="contours"
-  xmlns="http://www.w3.org/2000/svg"
   width={MAP_WIDTH}
   height={MAP_HEIGHT}
   viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
   style={`--summit-x:${peak.x}px;--summit-y:${peak.y}px`}
   aria-hidden="true"
-  focusable="false"
 >
   {contourLines.map((line) => <path class={line.isIndex ? "ix" : "ln"} d={line.d} />)}
   <path class="clear" transform={clearingTransform} d={logoHull} />

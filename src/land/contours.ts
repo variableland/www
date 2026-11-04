@@ -1,18 +1,18 @@
-export type HeightField = (x: number, y: number) => number;
+type HeightField = (x: number, y: number) => number;
 
-export type Point = { x: number; y: number };
+type Point = { x: number; y: number };
 
-export type Peak = Point & { height: number };
+type Peak = Point & { height: number };
 
-export type Hill = Peak & { radius: number };
+type Hill = Peak & { radius: number };
 
-export type Terrain = { hills: Hill[]; noise: number; seed: number };
+type Terrain = { hills: Hill[]; noise: number; seed: number };
 
-export type Area = { width: number; height: number; step: number };
+type Area = { width: number; height: number; step: number };
 
-export type Tracing = Area & { levels: number[]; indexEvery: number; epsilon: number };
+type Tracing = Area & { levels: number[]; indexEvery: number; epsilon: number };
 
-export type Contour = { isIndex: boolean; d: string };
+type Contour = { isIndex: boolean; d: string };
 
 const NOISE_SIZE = 64;
 const SMOOTHING_ROUNDS = 2;

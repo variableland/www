@@ -1,5 +1,5 @@
 export const LOGO_WIDTH = 402.02;
-export const LOGO_HEIGHT = 468.12;
+const LOGO_HEIGHT = 468.12;
 export const LOGO_RATIO = LOGO_HEIGHT / LOGO_WIDTH;
 export const MARK_WIDTH = 64;
 
