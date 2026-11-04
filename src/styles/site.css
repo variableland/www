@@ -119,6 +119,7 @@ a {
   background: var(--vland-paper);
   padding: 0.06em 0.16em 0.1em;
   margin-left: -0.16em;
+  translate: 0 0.143em;
 }
 
 .legend {
@@ -241,6 +242,7 @@ a {
 
   .place-name {
     margin-left: 0;
+    translate: none;
   }
 
   .legend {
