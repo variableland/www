@@ -1,41 +1,41 @@
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import tokens from "@variableland/brand/tokens.json";
-import { create, type Font } from "fontkit";
+import { Blob, Face, Font, Buffer as GlyphBuffer, shape, Variation } from "harfbuzzjs";
 import { decompress } from "woff2-encoder";
 
-export type PlaceName = { paths: string; width: number; capHeight: number; ascent: number; descent: number };
+export type PlaceName = { paths: string; width: number; ascent: number; descent: number };
 
 const require = createRequire(import.meta.url);
 const fontFile = "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2";
-const CAPITAL_H = 0x48;
-
-async function newsreader(): Promise<Font> {
-  const woff2 = await readFile(require.resolve(fontFile));
-  return create(Buffer.from(await decompress(woff2))) as Font;
-}
 
 export async function placeName(text: string, size: number): Promise<PlaceName> {
   const step = tokens.type.place;
-  const font = (await newsreader()).getVariation({ wght: Number(step.weight), opsz: size });
-  const scale = size / font.unitsPerEm;
+  const face = new Face(new Blob(await decompress(await readFile(require.resolve(fontFile)))));
+  const font = new Font(face);
+  font.setVariations([new Variation("wght", Number(step.weight)), new Variation("opsz", size)]);
+
+  const glyphs = new GlyphBuffer();
+  glyphs.addText(text);
+  glyphs.guessSegmentProperties();
+  shape(font, glyphs);
+
+  const scale = size / face.upem;
   const tracking = Number.parseFloat(step.tracking) * size;
-  const run = font.layout(text);
+  const positions = glyphs.getGlyphPositions();
   const paths: string[] = [];
   let x = 0;
-  run.glyphs.forEach((glyph, i) => {
-    const position = run.positions[i];
+  glyphs.getGlyphInfos().forEach((glyph, i) => {
+    const position = positions[i];
     if (!position) return;
-    const left = (x + position.xOffset * scale).toFixed(2);
-    const top = (-position.yOffset * scale).toFixed(2);
-    paths.push(`<path transform="translate(${left} ${top}) scale(${scale} ${-scale})" d="${glyph.path.toSVG()}"/>`);
+    const left = (x + position.xOffset * scale).toFixed(3);
+    const top = (-position.yOffset * scale).toFixed(3);
+    paths.push(
+      `<path transform="translate(${left} ${top}) scale(${scale} ${-scale})" d="${font.glyphToPath(glyph.codepoint)}"/>`,
+    );
     x += position.xAdvance * scale + tracking;
   });
-  return {
-    paths: paths.join(""),
-    width: x,
-    capHeight: font.glyphForCodePoint(CAPITAL_H).bbox.maxY * scale,
-    ascent: font.ascent * scale,
-    descent: -font.descent * scale,
-  };
+
+  const extents = font.hExtents();
+  return { paths: paths.join(""), width: x, ascent: extents.ascender * scale, descent: -extents.descender * scale };
 }

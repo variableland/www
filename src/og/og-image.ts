@@ -8,12 +8,13 @@ import { placeName } from "./place-name.ts";
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
 
-const SCALE = 1.3;
+const SCALE = 1.15;
 const PLACE_GAP = 20;
 const PLATE = { top: 0.06, side: 0.16, bottom: 0.1 };
+const CAP_SHIFT = 0.158;
 const LINE_WIDTH = { line: 1, index: 1.25 };
 
-const color = (name: keyof typeof tokens.color) => tokens.color[name].light;
+const color = (name: keyof typeof tokens.color) => tokens.color[name].dark;
 
 export async function ogImage(): Promise<Uint8Array<ArrayBuffer>> {
   const mark = MARK_WIDTH * SCALE;
@@ -25,11 +26,14 @@ export async function ogImage(): Promise<Uint8Array<ArrayBuffer>> {
   const left = (OG_WIDTH - (mark + gap + name.width)) / 2;
   const summit = { x: left + mark / 2, y: OG_HEIGHT / 2 };
   const textX = left + mark + gap;
-  const baseline = summit.y + name.capHeight / 2;
-  const lineTop = baseline - name.ascent - (lineHeight - name.ascent - name.descent) / 2;
+  const plateHeight = lineHeight + (PLATE.top + PLATE.bottom) * size;
+  const plateTop = summit.y - plateHeight / 2 + CAP_SHIFT * size;
+  const ascent = Math.round(name.ascent);
+  const descent = Math.round(name.descent);
+  const baseline = Math.floor(plateTop + PLATE.top * size + (lineHeight - ascent - descent) / 2 + ascent);
 
   const map = `<g transform="translate(${summit.x - top.x * SCALE} ${summit.y - top.y * SCALE}) scale(${SCALE})">${mapPaths()}</g>`;
-  const plate = `<rect x="${textX - PLATE.side * size}" y="${lineTop - PLATE.top * size}" width="${name.width + 2 * PLATE.side * size}" height="${lineHeight + (PLATE.top + PLATE.bottom) * size}" fill="${color("paper")}"/>`;
+  const plate = `<rect x="${textX - PLATE.side * size}" y="${plateTop}" width="${name.width + 2 * PLATE.side * size}" height="${plateHeight}" fill="${color("paper")}"/>`;
   const logoHeight = mark * LOGO_RATIO;
   const logo = logoSvg({ x: summit.x - mark / 2, y: summit.y - logoHeight / 2, width: mark, height: logoHeight });
   const text = `<g transform="translate(${textX} ${baseline})" fill="${color("ink")}">${name.paths}</g>`;
