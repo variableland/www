@@ -19,8 +19,8 @@ How to work on www in a clone. The [contributing guide](contributing.md) covers 
 [mise](https://mise.jdx.dev) 2026.10.19 or later pins Node 24, pnpm 12 and [gitleaks](https://github.com/gitleaks/gitleaks) (`mise.toml`, `mise.lock`) and puts `node_modules/.bin` on the PATH, so the tools run by name:
 
 ```sh
-mise install
-pnpm install
+mise install   # Node, pnpm and gitleaks, at the versions mise.toml pins
+pnpm install   # the dependencies, and the git hooks
 ```
 
 In a shell where mise isn't activated, run them as `mise exec -- <command>`.
