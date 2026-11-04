@@ -4,7 +4,7 @@ import tokens from "@variableland/brand/tokens.json";
 import { Blob, Face, Font, Buffer as GlyphBuffer, shape, Variation } from "harfbuzzjs";
 import { decompress } from "woff2-encoder";
 
-export type PlaceName = { paths: string; width: number; ascent: number; descent: number };
+export type PlaceName = { paths: string; width: number; ascent: number; descent: number; unitsPerPixel: number };
 
 const require = createRequire(import.meta.url);
 const fontFile = "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2";
@@ -37,5 +37,11 @@ export async function placeName(text: string, size: number): Promise<PlaceName> 
   });
 
   const extents = font.hExtents();
-  return { paths: paths.join(""), width: x, ascent: extents.ascender * scale, descent: -extents.descender * scale };
+  return {
+    paths: paths.join(""),
+    width: x,
+    ascent: extents.ascender * scale,
+    descent: -extents.descender * scale,
+    unitsPerPixel: 1 / scale,
+  };
 }

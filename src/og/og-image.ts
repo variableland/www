@@ -12,6 +12,7 @@ const SCALE = 1.15;
 const PLACE_GAP = 20;
 const PLATE = { top: 0.06, side: 0.16, bottom: 0.1 };
 const CAP_SHIFT = 0.158;
+const NAME_STROKE = 0.9;
 const LINE_WIDTH = { line: 1, index: 1.25 };
 
 const color = (name: keyof typeof tokens.color) => tokens.color[name].dark;
@@ -36,7 +37,7 @@ export async function ogImage(): Promise<Uint8Array<ArrayBuffer>> {
   const plate = `<rect x="${textX - PLATE.side * size}" y="${plateTop}" width="${name.width + 2 * PLATE.side * size}" height="${plateHeight}" fill="${color("paper")}"/>`;
   const logoHeight = mark * LOGO_RATIO;
   const logo = logoSvg({ x: summit.x - mark / 2, y: summit.y - logoHeight / 2, width: mark, height: logoHeight });
-  const text = `<g transform="translate(${textX} ${baseline})" fill="${color("ink")}">${name.paths}</g>`;
+  const text = `<g transform="translate(${textX} ${baseline})" fill="${color("ink")}" stroke="${color("ink")}" stroke-width="${NAME_STROKE * name.unitsPerPixel}" stroke-linejoin="round">${name.paths}</g>`;
 
   const mapStyle = `<style>.ln,.ix{fill:none;stroke-linejoin:round}.ln{stroke:${color("line")};stroke-width:${LINE_WIDTH.line / SCALE}}.ix{stroke:${color("line-index")};stroke-width:${LINE_WIDTH.index / SCALE}}.clear{fill:${color("paper")}}</style>`;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_WIDTH}" height="${OG_HEIGHT}" viewBox="0 0 ${OG_WIDTH} ${OG_HEIGHT}">${mapStyle}<rect width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="${color("paper")}"/>${map}${plate}${logo}${text}</svg>`;
