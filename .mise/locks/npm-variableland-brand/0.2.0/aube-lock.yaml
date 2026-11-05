@@ -1,0 +1,43 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@variableland/brand':
+        specifier: 0.2.0
+        version: 0.2.0
+
+packages:
+
+  '@fontsource-variable/newsreader@5.3.0':
+    resolution: {integrity: sha512-rrzYi43qMpbzwuFtf9OkWH8sxAPVPcQQQEwXpPtwaKYeJ8yVg5aLs5kawmo1f2Q1t1M38TLmEKCkGVDsYwgdFw==}
+
+  '@variableland/brand@0.2.0':
+    resolution: {integrity: sha512-ebzKecAay9iInHvqXHMYRlTd5ghGn0rKh2tXLAhXze9GANbeYdjeGWbE7WcgKxQXpuSQ8fKt8RZwCxAajAh8hA==}
+    hasBin: true
+
+  harfbuzzjs@1.6.4:
+    resolution: {integrity: sha512-T/PyfhVt1gGR2Tkf5KJUj1DQFkVBXHw552lS1iLEEDhV1Lukb3eq1pk2ov85kgbT2YUiZtJBTak9w+M7YgzUEQ==}
+
+  woff2-encoder@2.0.0:
+    resolution: {integrity: sha512-wH1rcskczCP5+BJABM88aM3hoEX1VUW6U+Ksx/7bmXvctWGqF+O/YQdC6vWQ7lJS7ny21a0MkAqcZyOP2O8CAg==}
+    engines: {node: '>= 18.x'}
+
+snapshots:
+
+  '@fontsource-variable/newsreader@5.3.0': {}
+
+  '@variableland/brand@0.2.0':
+    dependencies:
+      '@fontsource-variable/newsreader': 5.3.0
+      harfbuzzjs: 1.6.4
+      woff2-encoder: 2.0.0
+
+  harfbuzzjs@1.6.4: {}
+
+  woff2-encoder@2.0.0: {}

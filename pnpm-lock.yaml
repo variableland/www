@@ -197,8 +197,8 @@ importers:
         specifier: 26.6.6
         version: 26.6.6
       '@variableland/brand':
-        specifier: 0.1.1
-        version: 0.1.1
+        specifier: 0.2.0
+        version: 0.2.0
       astro:
         specifier: 7.4.5
         version: 7.4.5(@types/node@26.6.6)(esbuild@0.28.2)(yaml@2.9.1)
@@ -1208,8 +1208,9 @@ packages:
     resolution: {integrity: sha512-0+bYc1+4d595ipePTUezwXu2EOsxIlUY5BCHbqSUNqVTs+PicMDgIko2B3yLywbueO6eDRS2mmIeBnm5Nzjc3g==}
     engines: {node: '>=22.18.0'}
 
-  '@variableland/brand@0.1.1':
-    resolution: {integrity: sha512-ZMOlBOrtMXJ9JCUNnhwRBo//MBTIVdRD2YeD1ElpqYfb+AsH2Q+ijDV3JRIYdH7ht49ooYeUZq1QPHNcLFrUVQ==}
+  '@variableland/brand@0.2.0':
+    resolution: {integrity: sha512-ebzKecAay9iInHvqXHMYRlTd5ghGn0rKh2tXLAhXze9GANbeYdjeGWbE7WcgKxQXpuSQ8fKt8RZwCxAajAh8hA==}
+    hasBin: true
 
   '@volar/kit@2.4.30':
     resolution: {integrity: sha512-VocLtumfXnqnPQEWc9Yx7uC1uOh9gyjVNlrn2+6Zx/z9aM6yTLhPK8lSqM9Ilu81XRa48I00lcYJWLi2BLxx8Q==}
@@ -3343,7 +3344,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@variableland/brand@0.1.1': {}
+  '@variableland/brand@0.2.0':
+    dependencies:
+      '@fontsource-variable/newsreader': 5.3.0
+      harfbuzzjs: 1.6.4
+      woff2-encoder: 2.0.0
 
   '@volar/kit@2.4.30(typescript@6.0.3)':
     dependencies:

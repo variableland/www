@@ -38,6 +38,9 @@ jobs:
       - name: 🔍 Check
         run: pnpm rr check
 
+      - name: 🗺️ Check the README's sheet
+        run: vland-brand sheet --place --check
+
       - name: 🏗️ Build site
         run: pnpm astro build
 
